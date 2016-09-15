@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<link rel="stylesheet" href="content/bootstrap.min.css">
+<link rel="stylesheet" href="content/font-awesome/css/font-awesome.min.css">
+
+<head>
+  <meta charset="utf-8">
+  <title>vue-bootstrap-paginator</title>
+
+</head>
+
+<body>
+  <div class="container" id="app">
+
+    <div class="col-md-12">
+      <h1>Let's hear some stories!</h1>
+      <bs-paginator 
+        api-url="http://localhost:5000/api/stories/page/"
+        pages-per-segment="2"
+        :page-data.sync="pageData">
+      </bs-paginator>
+    </div>
+
+    <div class="col-md-12">
+
+      <table class="table-striped table-bordered">
+        <col width=5%>
+        <col width=70%>
+        <col width=25%>
+        <col width=10%>
+        <tr>
+          <th>#</th>
+          <th>Plot</th>
+          <th>Writer</th>
+          <th>Upvotes</th>
+        </tr>
+        <tr v-for="story in pageData">
+          <td>{{ story.id }}</td>
+          <td>{{ story.plot }}</td>
+          <td>{{ story.writer }}</td>
+          <td>{{ story.upvotes }}</td>
+        </tr>
+      </table>
+
+    </div>
+
+  </div>
+
+  <script src="lib/vue.js"></script>
+  <script src="dist/vbs-paginator.js"></script>
+
+  <script>
+      var vm = new Vue({
+          el: 'body',
+          components: {
+            'BsPaginator': VueBootstrapPaginator
+          },
+          data: {
+                pageData: []
+            }
+      });
+  </script>
+
+</body>
+
+</html>
